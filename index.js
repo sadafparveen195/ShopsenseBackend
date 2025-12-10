@@ -4,14 +4,6 @@ import app from "./src/app.js";
 
 dotenv.config({ path: "./.env" });
 
-const PORT = process.env.PORT || 3000;
+connectDB().catch((err) => console.error("DB connection error:", err));
 
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("DB connection error:", err);
-  });
+export default app;
