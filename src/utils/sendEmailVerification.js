@@ -12,16 +12,18 @@ const GenerateAndSendVerificationEmail = async (user) => {
     const verificationLink = `${process.env.DOMAIN}/api/v1/users/verify-email/${_id}/${verificationToken}`;
 
     const transporter = createTransport({
-      service: "Gmail",
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+        user: process.env.BREVO_SMTP_USER,
+        pass: process.env.BREVO_SMTP_PASS,
       },
     });
 
     // Define mail options
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: process.env.MY_MAIL,
       to: email,
       subject: "✅ Verify Your Email Address",
       html: `
